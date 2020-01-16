@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="add_buttons">
+
+    <div class="button-group">
+
+        <a class="btn btn-primary btn-md btn-trim" href="{% url 'display_item1' %}" role="button">Item 1</a>
+        <a class="btn btn-warning btn-sm btn-pad" href="{% url 'add_item1' %}" role="button"> +</a>
+
+        <a class="btn btn-primary btn-md btn-trim" href="{% url 'display_item2' %}" role="button">Item 2</a>
+        <a class="btn btn-warning btn-sm btn-pad" href="{% url 'add_item2' %}" role="button"> +</a>
+
+        <a class="btn btn-primary btn-md btn-trim" href="{% url 'display_item3' %}" role="button">Item 3</a>
+        <a class="btn btn-warning btn-sm btn-pad" href="{% url 'add_item3' %}" role="button"> +</a>
+
+    </div>
+
+</div>
+
+<div>
+    <br>
+    <h4>Currently Viewing {{ header }}</h4>
+</div>
+
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>Model</th>
+        <th>Price</th>
+        <th>Status</th>
+        <th>Issues</th>
+        <th></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    {% for item in items %}
+    <tr>
+        <td>{{ item.pk }}</td>
+        <td>{{ item.type }}</td>
+        <td>{{ item.price }}</td>
+        <td>{{ item.status }}</td>
+        <td>{{ item.issues }}</td>
+
+        {% if header|lower == 'item1' %}
+        <td>
+            <a aria-pressed="true" class="btn btn-warning btn-sm" href="{% url 'edit_item1' item.pk %}" role="button">
+                Edit</a>
+            <a aria-pressed="true" class="btn btn-danger btn-sm" href="{% url 'delete_item1' item.pk%}" role="button">
+                x</a>
+        </td>
+        {% elif header|lower == 'item2' %}
+        <td>
+            <a aria-pressed="true" class="btn btn-warning btn-sm" href="{% url 'edit_item2' item.pk %}" role="button">
+                Edit</a>
+            <a aria-pressed="true" class="btn btn-danger btn-sm" href="{% url 'delete_item2' item.pk%}" role="button">
+                x</a>
+        </td>
+        {% else %}
+        <td>
+            <a aria-pressed="true" class="btn btn-warning btn-sm" href="{% url 'edit_item3' item.pk %}" role="button">
+                Edit</a>
+            <a aria-pressed="true" class="btn btn-danger btn-sm" href="{% url 'delete_item3' item.pk%}" role="button">
+                x</a>
+        </td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
